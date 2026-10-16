@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: gestion_produits
+      POSTGRES_USER: gestion_user
+      POSTGRES_PASSWORD: gestion_password
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gestion_user -d gestion_produits"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  postgres_data:

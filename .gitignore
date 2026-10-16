@@ -1,0 +1,12 @@
+target/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+.factorypath
+.DS_Store
+
+# Secrets locaux éventuels
+.env
