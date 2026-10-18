@@ -1,0 +1,9 @@
+$kind: http-request
+name: 'Get Products by Category'
+method: GET
+url: '{{baseUrl}}/api/products/category/:category'
+order: 1000
+pathVariables:
+  - key: category
+    value: Informatique
+    description: 'Product category to filter by (must not be blank)'

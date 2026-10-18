@@ -1,0 +1,9 @@
+$kind: http-request
+name: 'Search by Name'
+method: GET
+url: '{{baseUrl}}/api/products/search?name=Ordinateur'
+order: 2000
+queryParams:
+  - key: name
+    value: Ordinateur
+    description: 'Partial or full product name to search for (must not be blank)'

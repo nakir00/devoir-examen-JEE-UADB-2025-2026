@@ -1,0 +1,9 @@
+$kind: http-request
+name: 'Get Low Stock Products'
+method: GET
+url: '{{baseUrl}}/api/products/low-stock?threshold=10'
+order: 3000
+queryParams:
+  - key: threshold
+    value: '10'
+    description: 'Maximum quantity threshold — products with quantity <= threshold are returned (must be >= 0)'

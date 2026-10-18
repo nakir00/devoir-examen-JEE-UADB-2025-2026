@@ -1,0 +1,4 @@
+$kind: collection
+name: Products
+description: 'CRUD operations on products: create, read, update, delete.'
+order: 1000

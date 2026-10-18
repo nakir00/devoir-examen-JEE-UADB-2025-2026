@@ -1,12 +1,15 @@
+name: gestion-produits-jee
+
 services:
   postgres:
     image: postgres:17
+    container_name: gestion-produits-postgres
     environment:
       POSTGRES_DB: gestion_produits
       POSTGRES_USER: gestion_user
       POSTGRES_PASSWORD: gestion_password
     ports:
-      - '5432:5432'
+      - '127.0.0.1:5433:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -16,5 +19,43 @@ services:
       retries: 10
       start_period: 5s
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: gestion-produits-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin_password
+    ports:
+      - '127.0.0.1:5050:80'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    configs:
+      - source: pgadmin_servers
+        target: /pgadmin4/servers.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   postgres_data:
+    name: gestion_produits_jee_pg17_data
+  pgadmin_data:
+    name: gestion_produits_jee_pgadmin_data
+
+# Déclaration intégrée pour conserver un seul fichier Compose autonome.
+configs:
+  pgadmin_servers:
+    content: |
+      {
+        "Servers": {
+          "1": {
+            "Name": "Gestion des produits",
+            "Group": "UADB",
+            "Host": "postgres",
+            "Port": 5432,
+            "MaintenanceDB": "gestion_produits",
+            "Username": "gestion_user",
+            "SSLMode": "prefer"
+          }
+        }
+      }

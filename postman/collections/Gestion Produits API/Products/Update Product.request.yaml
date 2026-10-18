@@ -1,0 +1,21 @@
+$kind: http-request
+name: 'Update Product'
+method: PUT
+url: '{{baseUrl}}/api/products/:id'
+order: 4000
+pathVariables:
+  - key: id
+    value: '1'
+    description: 'ID of the product to update (must be a positive integer)'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Ordinateur Portable Pro",
+      "category": "Informatique",
+      "price": 950.00,
+      "quantity": 15
+    }

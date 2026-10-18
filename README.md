@@ -35,7 +35,17 @@ La configuration locale est fournie dans `compose.yaml` :
 - base : `gestion_produits`
 - utilisateur : `gestion_user`
 - mot de passe : `gestion_password`
-- port : `5432`
+- hôte : `127.0.0.1`
+- port local : `5433` (port `5432` à l'intérieur du conteneur)
+- conteneur dédié : `gestion-produits-postgres`
+- volume dédié : `gestion_produits_jee_pg17_data`
+
+Le même fichier Compose fournit pgAdmin à l'adresse `http://localhost:5050` :
+connexion avec `admin@example.com` et le mot de passe local `pgadmin_password`.
+Le serveur « Gestion des produits » est préconfiguré au premier démarrage de pgAdmin.
+À la première connexion au serveur PostgreSQL, saisir `gestion_password`.
+pgAdmin utilise le nom de service `postgres` et le port interne `5432` ; l'application
+Spring Boot utilise toujours `localhost:5433`. La configuration pgAdmin dispose de son propre volume persistant.
 
 Ces identifiants sont destinés au développement local. Les mêmes valeurs sont les valeurs par défaut de
 `application.properties`. Elles peuvent être remplacées sans modifier le projet : `DB_URL`,
@@ -67,8 +77,12 @@ Sous Windows, utiliser `mvnw.cmd` à la place de `./mvnw`.
 
 Hibernate crée ou met à jour la table `products` au démarrage grâce à `ddl-auto=update`.
 Cette configuration est choisie pour le mini-projet local. Les données PostgreSQL sont conservées dans
-le volume Docker `postgres_data`. `docker compose stop` arrête la base sans effacer ce volume.
-Le port `5432` doit être disponible pour le conteneur.
+le volume Docker `gestion_produits_jee_pg17_data`. `docker compose stop` arrête la base sans effacer ce volume.
+Le port local `5433` doit être disponible pour le conteneur.
+L'URL JDBC par défaut est `jdbc:postgresql://localhost:5433/gestion_produits`.
+Si l'IDE définit `DB_URL`, `DB_USERNAME`, `DB_PASSWORD` ou des propriétés `spring.datasource.*`,
+les aligner sur cette instance dédiée ou retirer ces remplacements pour utiliser les valeurs du projet.
+Les autres conteneurs PostgreSQL et leurs volumes sont indépendants de cette configuration.
 
 ## API
 

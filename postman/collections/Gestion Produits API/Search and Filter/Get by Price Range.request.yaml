@@ -1,0 +1,12 @@
+$kind: http-request
+name: 'Get by Price Range'
+method: GET
+url: '{{baseUrl}}/api/products/price-range?min=100.00&max=1000.00'
+order: 4000
+queryParams:
+  - key: min
+    value: '100.00'
+    description: 'Minimum price (must be >= 0)'
+  - key: max
+    value: '1000.00'
+    description: 'Maximum price (must be >= 0)'

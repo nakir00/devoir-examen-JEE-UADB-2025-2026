@@ -1,0 +1,10 @@
+$kind: collection
+name: 'Gestion Produits API'
+description: |-
+  API REST de gestion des produits — Spring Boot (Java EE / Jakarta EE)
+  UADB – J2E 2026
+
+  Base path: /api/products
+variables:
+  - key: baseUrl
+    value: 'http://localhost:8080'

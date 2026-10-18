@@ -1,0 +1,4 @@
+$kind: collection
+name: 'Search and Filter'
+description: 'Query products by category, name, stock level, and price range.'
+order: 2000
